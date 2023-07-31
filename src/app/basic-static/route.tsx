@@ -7,6 +7,9 @@ export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const params = new URLSearchParams(url.search);
   const title = params.get("title") ?? "Created with Netlify edge functions";
+  const pubDate = params.get("pubDate") ?? new Date().toISOString();
+  const w = Number(params.get("w")) || 1035;
+  const h = Number(params.get("h")) || 1194;
 
   return new ImageResponse(
     (
@@ -23,12 +26,12 @@ export async function GET(request: NextRequest) {
         }}
       >
         <div>{title}</div>
-        <div>World</div>
+        <div>{pubDate}</div>
       </div>
     ),
     {
-      width: 1035,
-      height: 1194,
+      width: w,
+      height: h,
     }
   );
 }

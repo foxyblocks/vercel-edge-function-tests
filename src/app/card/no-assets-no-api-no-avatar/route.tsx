@@ -7,9 +7,7 @@ import { CardSauceBG } from "@/app/card/CardSauceBG";
  * @params {number} w - Width of the card
  */
 
-export const config = {
-  runtime: 'edge',
-};
+export const runtime = 'edge';
 
 
 const ASPECT_RATIO = 245 / 348;

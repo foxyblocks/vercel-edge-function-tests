@@ -6,11 +6,7 @@ import { ImageResponse } from "@vercel/og";
  * @params {number} w - Width of the card
  */
 
-export const config = {
-  runtime: 'edge',
-};
- 
-
+export const runtime = 'edge';
 
 const ASPECT_RATIO = 245 / 348;
 const BASE_WIDTH = 245;
