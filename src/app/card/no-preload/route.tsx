@@ -15,11 +15,6 @@ const DEFAULT_WIDTH = 735;
 const MAX_WIDTH = 1960;
 
 // Make sure the font exists in the specified path:
-// const logoImg = fetch(new URL("./logo.png", import.meta.url)).then((res) => res.arrayBuffer());
-// const interSemiBoldFont = fetch(new URL("./Inter-SemiBold.ttf", import.meta.url)).then((res) =>
-//   res.arrayBuffer()
-// );
-// const interBlackFont = fetch(new URL("./Inter-Black.ttf", import.meta.url)).then((res) => res.arrayBuffer());
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -41,18 +36,21 @@ export async function GET(request: NextRequest) {
 
   const bufferSize = size(50);
 
-  // const [interSemiBoldFontData, interBlackFontData, logoImgData, prReq] = await Promise.all([
-  //   interSemiBoldFont,
-  //   interBlackFont,
-  //   logoImg,
-  //   fetchContributorPRs(username),
-  // ]);
+  const logoImg = fetch(new URL('/logo.png')).then((res) => res.arrayBuffer());
+  const interSemiBoldFont = fetch(new URL('/Inter-SemiBold.ttf')).then((res) => res.arrayBuffer());
+  const interBlackFont = fetch(new URL('/Inter-Black.ttf')).then((res) => res.arrayBuffer());
+  const [interSemiBoldFontData, interBlackFontData, logoImgData, prReq] = await Promise.all([
+    interSemiBoldFont,
+    interBlackFont,
+    logoImg,
+    fetchContributorPRs(username),
+  ]);
 
-  // const { data: prData } = prReq;
-  // const prs = prData.length;
-  // const repos = getRepoList(Array.from(new Set(prData.map((prData: any) => prData.full_name))).join(",")).length;
-  const prs = 42;
-  const repos = 24;
+  const { data: prData } = prReq;
+  const prs = prData.length;
+  const repos = getRepoList(
+    Array.from(new Set(prData.map((prData: any) => prData.full_name))).join(','),
+  ).length;
 
   return new ImageResponse(
     (
@@ -107,13 +105,13 @@ export async function GET(request: NextRequest) {
                   style={{ left: size(10), top: size(10), height: size(13) }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element  */}
-                  {/* <img
+                  <img
                     alt="Open Sauced Logo"
                     width={size(13)}
                     height={size(13)}
                     // @ts-ignore
                     src={logoImgData}
-                  /> */}
+                  />
                   <p tw={'text-white'} style={{ fontSize: `${size(8)}px` }}>
                     OpenSauced
                   </p>
@@ -146,7 +144,6 @@ export async function GET(request: NextRequest) {
                       {repos}
                     </div>
                     <div tw="flex" style={{ fontSize: size(12) }}>
-                      {/* @ts-ignore */}
                       {repos === 1 ? 'Repo' : 'Repos'}
                     </div>
                   </div>
@@ -192,20 +189,20 @@ export async function GET(request: NextRequest) {
     {
       width: width + bufferSize * 2,
       height: height + bufferSize,
-      // fonts: [
-      //   {
-      //     name: "Inter",
-      //     data: interSemiBoldFontData,
-      //     weight: 700,
-      //     style: "normal",
-      //   },
-      //   {
-      //     name: "Inter",
-      //     data: interBlackFontData,
-      //     weight: 900,
-      //     style: "normal",
-      //   },
-      // ],
+      fonts: [
+        {
+          name: 'Inter',
+          data: interSemiBoldFontData,
+          weight: 700,
+          style: 'normal',
+        },
+        {
+          name: 'Inter',
+          data: interBlackFontData,
+          weight: 900,
+          style: 'normal',
+        },
+      ],
     },
   );
 }
