@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
-import { CardSauceBG } from "@/app/card/CardSauceBG";
 
 /**
  * @params {string} username - username for the requested user
@@ -10,6 +9,7 @@ import { CardSauceBG } from "@/app/card/CardSauceBG";
 export const config = {
   runtime: 'edge',
 };
+ 
 
 
 const ASPECT_RATIO = 245 / 348;
@@ -42,18 +42,6 @@ export async function GET(request: NextRequest) {
   }
 
   const bufferSize = size(50);
-
-  // const [interSemiBoldFontData, interBlackFontData, logoImgData, prReq] = await Promise.all([
-  //   interSemiBoldFont,
-  //   interBlackFont,
-  //   logoImg,
-  //   fetchContributorPRs(username),
-  // ]);
-
-  // const { data: prData } = prReq;
-  // console.log("DATA", prData)
-  // const prs = prData.length;
-  // const repos = getRepoList(Array.from(new Set(prData.map((prData: any) => prData.full_name))).join(",")).length;
   const prs = 42;
   const repos = 24;
 
@@ -103,7 +91,6 @@ export async function GET(request: NextRequest) {
                     top: 0,
                   }}
                 >
-                  <CardSauceBG width={size(245)} height={size(177)} />
                 </div>
                 <div tw="flex absolute items-center" style={{ left: size(10), top: size(10), height: size(13) }}>
                   {/* eslint-disable-next-line @next/next/no-img-element  */}
@@ -146,20 +133,6 @@ export async function GET(request: NextRequest) {
               </div>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            {/* <img
-              src={avatarURL}
-              alt="avatar"
-              width={size(116)}
-              height={size(116)}
-              tw="absolute rounded-full"
-              style={{
-                border: `${size(2)}px solid #fff`,
-                left: "50%",
-                top: "50%",
-                marginLeft: size(116) * -0.5,
-                marginTop: size(116) * -0.8,
-              }}
-            /> */}
             <div
               tw="flex"
               style={{
@@ -183,21 +156,6 @@ export async function GET(request: NextRequest) {
     {
       width: width + bufferSize * 2,
       height: height + bufferSize,
-      // fonts: [
-      //   {
-      //     name: "Inter",
-      //     data: interSemiBoldFontData,
-      //     weight: 700,
-      //     style: "normal",
-      //   },
-      //   {
-      //     name: "Inter",
-      //     data: interBlackFontData,
-      //     weight: 900,
-      //     style: "normal",
-      //   },
-      // ],
     }
   );
 }
-

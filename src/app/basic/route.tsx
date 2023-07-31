@@ -1,6 +1,10 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "@vercel/og";
 
+export const config = {
+  runtime: 'edge',
+};
+
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const params = new URLSearchParams(url.search);
