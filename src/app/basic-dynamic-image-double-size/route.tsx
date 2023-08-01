@@ -6,12 +6,6 @@ export const runtime = 'edge';
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const username = searchParams.get('username');
-  if (!username) {
-    return new ImageResponse(<>{'Visit with "?username=vercel"'}</>, {
-      width: 1200,
-      height: 630,
-    });
-  }
 
   return new ImageResponse(
     (
@@ -32,8 +26,8 @@ export async function GET(request: NextRequest) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           alt="avatar"
-          width="256"
-          src={`https://github.com/${username}.png`}
+          width="460"
+          src={`https://github.com/${username}.png?size=460`}
           style={{
             borderRadius: 128,
           }}
